@@ -1,6 +1,27 @@
-import json
+from sqlalchemy import create_engine, Table, Column, Integer, String, JSON, MetaData
+import datetime
 
-def log_event(ip: str, results: dict, score: int):
-    """Log IP event with risk score"""
-    log = {"ip": ip, "results": results, "risk_score": score}
-    print("[HYEONMUN LOG]", json.dumps(log, ensure_ascii=False))
+engine = create_engine("postgresql://user:password@localhost/hyeonmun")
+metadata = MetaData()
+
+events = Table(
+    "events", metadata,
+    Column("id", Integer, primary_key=True),
+    Column("ip", String),
+    Column("results", JSON),
+    Column("risk_score", Integer),
+    Column("timestamp", String)
+)
+
+metadata.create_all(engine)
+
+def log_event(event: dict):
+    ins = events.insert().values(
+        ip=event["client_ip"],
+        results=event["results"],
+        risk_score=event["risk_score"],
+        timestamp=datetime.datetime.utcnow().isoformat()
+    )
+    conn = engine.connect()
+    conn.execute(ins)
+    conn.close()
