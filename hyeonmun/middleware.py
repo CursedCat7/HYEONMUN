@@ -56,9 +56,10 @@ class IPReputationMiddleware(BaseHTTPMiddleware):
         risk_score = min(risk_score, 100)
 
         # Redis cache
-        await cache.set_cache(f"risk:{client_ip}", risk_score, expire=300)
-        if js_active:
-            cache.register_js_ping(client_ip)
+        try:
+            await cache.set_cache(f"risk:{client_ip}", risk_score, expire=300)
+        except Exception:
+            pass
 
         # Logging
         logging.log_event({
