@@ -1,4 +1,8 @@
-fastapi
-uvicorn
-python-dotenv
-starlette
+fastapi==0.109.1
+uvicorn[standard]==0.23.2
+httpx==1.8.4
+aioredis==2.1.0
+sqlalchemy==2.1.2
+clickhouse-connect==0.6.17
+pydantic==2.7.1
+python-dotenv==1.0.0
