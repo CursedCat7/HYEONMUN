@@ -6,13 +6,22 @@ async def init_redis(uri="redis://localhost"):
     global _rds
     _rds = aioredis.from_url(uri, decode_responses=True)  
 
-async def set_cache(key: str, value, expire: int = 60):
+async def set_cache(key, value, expire=None):
     if _rds is None:
-        raise RuntimeError("Redis not initialized. Call init_redis() first.")
-    await _rds.set(key, value, ex=expire)
+        # Skip if Redis not initialized
+        return
+    try:
+        await _rds.set(key, value, ex=expire)
+    except Exception:
+        # Ignore Redis write errors
+        pass
 
 async def get_cache(key: str):
     if _rds is None:
-        raise RuntimeError("Redis not initialized. Call init_redis() first.")
-    val = await _rds.get(key)
-    return val  
+        # Return None if Redis not initialized
+        return None
+    try:
+        val = await _rds.get(key)
+        return val
+    except Exception:
+        return None
