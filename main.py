@@ -5,6 +5,8 @@ from hyeonmun.storage.cache import init_redis
 from hyeonmun.storage.database import create_db_and_tables
 import uvicorn
 import os
+import logging
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 app.add_middleware(IPReputationMiddleware)
@@ -16,7 +18,6 @@ async def startup_event():
     await init_redis(redis_uri)
     # DB later
     create_db_and_tables()
-    print('Startup complete.')
 
 #root request
 @app.get("/")
