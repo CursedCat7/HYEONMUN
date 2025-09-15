@@ -3,7 +3,7 @@ import requests
 # proxycheck.io maby
 PROXYCHECK_API_URL = "http://proxycheck.io/v2/{ip}?key=YOUR_API_KEY&vpn=1&asn=1"
 
-#API key set later
+#API key set .env or sh later
 API_KEY = "YOUR_API_KEY" 
 
 def check_ip(ip: str) -> bool:
