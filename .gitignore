@@ -18,6 +18,7 @@ Thumbs.db
 
 # Logs
 *.log
+*.jsonl
 
 # Others
 *.sqlite3

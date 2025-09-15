@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 
-LOG_FILE = "hyeonmun_log.jsonl"
+LOG_FILE = "/logs/hyeonmun_log.jsonl"
 
 class Database:
     def save_log(self, data: dict):

@@ -16,7 +16,9 @@ async def startup_event():
     await init_redis(redis_uri)
     # DB later
     create_db_and_tables()
+    print('Startup complete.')
 
+#root request
 @app.get("/")
 async def root(request: Request):
     """Return IP reputation results"""
@@ -34,6 +36,7 @@ async def test_header(request: Request):
     """Test header changes"""
     return {"headers": dict(request.headers)}
 
+#for param tampering test
 @app.get("/test-param")
 async def test_param(q: str = None):
     """Test param tampering"""
