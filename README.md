@@ -24,7 +24,7 @@ It detects VPNs, Tor nodes, anonymous proxies, and abnormal network traffic, hel
 ## Installation
 
 ```
-pip install hyeonmun
+ex : pip install fastapi_hyeonmun
 ```
 
 FastAPI Integration Example
